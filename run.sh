@@ -76,6 +76,7 @@ $cmd install iptables -y
 $cmd install git -y
 $cmd install gnutls-bin -y
 git config --global http.sslVerify false
+git config --global http.postBuffer 1048576000
 python3 -m pip install flask --break-system-packages
 
 if [ -z $HOME ]; then

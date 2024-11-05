@@ -154,13 +154,18 @@ LOCAL_IP=$(ip addr | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
 echo -e "你的激活服务运行在 \n${red}http://$ip:$flaskport/$flaskroute ${none}\n${green}http://$LOCAL_IP:$flaskport/$flaskroute ${none}" 
 echo -e "http://$ip:$flaskport/$flaskroute \n http://$LOCAL_IP:$flaskport/$flaskroute" > url.txt
 rm run.sh
+
+sed -i "s/yourport/$flaskport/" manager.sh
+sed -i "s/yourpath/$flaskroute/" manager.sh
+
+chmod +x manager.sh
 #驻守服务
 cat >/tmp/iptables_manager.service <<EOL
 [Unit]
 Description=Help to create iptables
 After=network.target
 [Service]
-ExecStart=/usr/bin/python3 $HOME/flask_iptables_manager.py $flaskport $flaskroute
+ExecStart=/usr/bin/python3 $HOME/flask_iptables_manager/flask_iptables_manager.py $flaskport $flaskroute
 Restart=on-failure
 RestartSec=5s
 Nice=10
@@ -172,4 +177,3 @@ sudo mv /tmp/iptables_manager.service /etc/systemd/system/iptables_manager.servi
 sudo systemctl daemon-reload
 sudo systemctl enable iptables_manager.service
 sudo systemctl start iptables_manager.service
-

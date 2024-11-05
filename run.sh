@@ -155,7 +155,7 @@ echo -e "你的激活服务运行在 \n${red}http://$ip:$flaskport/$flaskroute $
 echo -e "http://$ip:$flaskport/$flaskroute \n http://$LOCAL_IP:$flaskport/$flaskroute" > url.txt
 rm run.sh
 #驻守服务
-
+cat >/tmp/iptables_manager.service <<EOL
 [Unit]
 Description=Help to create iptables
 After=network.target

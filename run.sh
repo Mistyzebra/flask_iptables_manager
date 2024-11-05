@@ -48,15 +48,15 @@ down_file() {
 	#BASE_URL="https://gitee.com/yumusb/flask_iptables_manager/raw/master/"
 	#files=[]
 	if [ `curl https://api.myip.la/en -s | cut -f2` = "CN" ];then gitserver="https://gitee.com";else gitserver="https://github.com";fi
-	echo "will clone $gitserver/yumusb/flask_iptables_manager.git into local"
-	git clone "$gitserver/yumusb/flask_iptables_manager.git"
+	echo "will clone $gitserver/Mistyzebra/flask_iptables_manager.git into local"
+	git clone "$gitserver/Mistyzebra/flask_iptables_manager.git"
 }
 
 #检查是否root用户
 [[ $(id -u) != 0 ]] && echo -e " 哎呀……请使用 ${red}root ${none}用户运行 ${yellow}~(^_^) ${none}" && exit 1
 
 #如果有该进程则杀掉
-pid=`ps -aux | grep 'python flask_iptables_manager.py' | grep -v grep | awk '{print $2}'`
+pid=`ps -aux | grep 'python3 flask_iptables_manager.py' | grep -v grep | awk '{print $2}'`
 [[ -n $pid ]] && kill -9 $pid && echo "已杀死$pid"
 
 #判断包管理类型
@@ -72,11 +72,10 @@ fi
 # 环境配置
 $cmd update -y
 $cmd install wget -y
-$cmd install python-pip -y
+$cmd install python3-pip -y
 $cmd install iptables -y
 $cmd install git -y
-curl https://bootstrap.pypa.io/pip/`python -c "import sys;print(str(sys.version_info[0])+'.'+str(sys.version_info[1]))"`/get-pip.py | python
-python -m pip install flask
+python3 -m pip install flask
 
 if [ -z $HOME ]; then
   export HOME=~

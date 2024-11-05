@@ -47,9 +47,8 @@ get_ip() {
 down_file() {
 	#BASE_URL="https://gitee.com/yumusb/flask_iptables_manager/raw/master/"
 	#files=[]
-	if [ `curl https://api.myip.la/en -s | cut -f2` = "CN" ];then gitserver="https://gitee.com";else gitserver="https://github.com";fi
-	echo "will clone $gitserver/Mistyzebra/flask_iptables_manager.git into local"
-	git clone "$gitserver/Mistyzebra/flask_iptables_manager.git"
+	echo "will clone https://github.com/Mistyzebra/flask_iptables_manager.git into local"
+	git clone "https://github.com/Mistyzebra/flask_iptables_manager.git"
 }
 
 #检查是否root用户
@@ -75,7 +74,7 @@ $cmd install wget -y
 $cmd install python3-pip -y
 $cmd install iptables -y
 $cmd install git -y
-python3 -m pip install flask
+python3 -m pip install flask --break-system-packages
 
 if [ -z $HOME ]; then
   export HOME=~

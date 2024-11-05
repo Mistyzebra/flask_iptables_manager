@@ -156,17 +156,13 @@ echo -e "http://$ip:$flaskport/$flaskroute \n http://$LOCAL_IP:$flaskport/$flask
 rm run.sh
 #驻守服务
 
-sed -i "s/yourport/$flaskport/" manager.sh
-sed -i "s/yourpath/$flaskroute/" manager.sh
-
-chmod +x manager.sh
-bash manager.sh
-cat >/tmp/iptables_manager.service <<EOL
 [Unit]
 Description=Help to create iptables
+After=network.target
 [Service]
-ExecStart=$HOME/flask_iptables_manager/manager.sh
-Restart=always
+ExecStart=/usr/bin/python3 $HOME/flask_iptables_manager.py $flaskport $flaskroute
+Restart=on-failure
+RestartSec=5s
 Nice=10
 CPUWeight=1
 [Install]
@@ -177,4 +173,3 @@ sudo systemctl daemon-reload
 sudo systemctl enable iptables_manager.service
 sudo systemctl start iptables_manager.service
 
-rm $0

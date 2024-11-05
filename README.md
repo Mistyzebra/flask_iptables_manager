@@ -1,3 +1,3 @@
 # flask_iptables_manager
 
-run `wget https://git.io/iptables -O /tmp/ipt.sh &&  bash /tmp/ipt.sh` to install 
+run `bash <(curl -L -s https://gitee.com/yumusb/flask_iptables_manager/raw/master/run.sh)` to install 

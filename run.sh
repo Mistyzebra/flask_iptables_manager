@@ -75,6 +75,7 @@ $cmd install python3-pip -y
 $cmd install iptables -y
 $cmd install git -y
 $cmd install gnutls-bin -y
+git config --global http.sslVerify false
 python3 -m pip install flask --break-system-packages
 
 if [ -z $HOME ]; then
